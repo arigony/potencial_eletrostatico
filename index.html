@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Potencial Eletrostatico Molecular</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace">
+        <aside class="sidebar" aria-label="Controles moleculares">
+          <div class="brand">
+            <span class="brand-mark">PE</span>
+            <div>
+              <h1>Potencial Eletrostatico</h1>
+              <p>Geometria simples, cargas aproximadas e intuicao organica.</p>
+            </div>
+          </div>
+
+          <label class="field-label" for="moleculeSelect">Escolher molecula</label>
+          <select id="moleculeSelect" class="control">
+            <option value="water">Agua</option>
+            <option value="ammonia">Amonia</option>
+            <option value="methanol">Metanol</option>
+            <option value="ethanol">Etanol</option>
+            <option value="acetone">Acetona</option>
+            <option value="acetic_acid">Acido acetico</option>
+            <option value="benzene">Benzeno</option>
+            <option value="chloromethane">Clorometano</option>
+            <option value="methyl_cyanoacrylate">Metil 2-cianoacrilato</option>
+            <option value="ethyl_cyanoacrylate">Etil 2-cianoacrilato</option>
+            <option value="propyl_cyanoacrylate">Propil 2-cianoacrilato</option>
+            <option value="methyl_2_fluoroacrylate">Metil 2-fluoroacrilato</option>
+            <option value="methyl_2_nitroacrylate">Metil 2-nitroacrilato</option>
+            <option value="methyl_2_methylacrylate">Metil 2-metilacrilato</option>
+            <option value="methyl_2_propylacrylate">Metil 2-propilacrilato</option>
+          </select>
+
+          <label class="field-label" for="smilesInput">Ou digitar SMILES simples</label>
+          <div class="input-row">
+            <input id="smilesInput" class="control" placeholder="Ex.: CCO, CC(=O)O, c1ccccc1" />
+            <button id="loadSmiles" class="primary-button" type="button">Gerar</button>
+          </div>
+          <p class="hint">Nesta versao educacional, SMILES livres usam modelos aproximados quando reconhecidos.</p>
+
+          <div class="toggles">
+            <label><input id="showCharges" type="checkbox" checked /> Cargas</label>
+            <label><input id="showDipole" type="checkbox" checked /> Dipolo</label>
+            <label><input id="showMap" type="checkbox" checked /> Mapa eletrostatico</label>
+          </div>
+
+          <div class="legend" aria-label="Legenda de potencial eletrostatico">
+            <span>negativo</span>
+            <div class="colorbar"></div>
+            <span>positivo</span>
+          </div>
+        </aside>
+
+        <section class="viewer-panel">
+          <div id="viewer" class="viewer" aria-label="Visualizador 3D molecular"></div>
+          <div class="viewer-toolbar">
+            <button id="resetView" class="ghost-button" type="button">Centralizar</button>
+            <button id="toggleSpin" class="ghost-button" type="button">Girar</button>
+          </div>
+        </section>
+
+        <aside class="analysis-panel" aria-label="Resultados">
+          <section class="molecule-title">
+            <span id="formulaBadge" class="formula-badge"></span>
+            <h2 id="moleculeName"></h2>
+            <p id="methodNote"></p>
+          </section>
+
+          <section class="metric-grid">
+            <article class="metric">
+              <span>Dipolo</span>
+              <strong id="dipoleValue"></strong>
+              <small>Debye</small>
+            </article>
+            <article class="metric">
+              <span>ESP min</span>
+              <strong id="espMin"></strong>
+              <small>u.a. aprox.</small>
+            </article>
+            <article class="metric">
+              <span>ESP max</span>
+              <strong id="espMax"></strong>
+              <small>u.a. aprox.</small>
+            </article>
+            <article class="metric">
+              <span>Atomos</span>
+              <strong id="atomCount"></strong>
+              <small>modelo 3D</small>
+            </article>
+          </section>
+
+          <section>
+            <h3>Cargas parciais</h3>
+            <div id="chargeTable" class="charge-table"></div>
+          </section>
+
+          <section>
+            <h3>Explicacao organica</h3>
+            <p id="organicExplanation" class="explanation"></p>
+          </section>
+
+          <section class="disclaimer">
+            <h3>Precisao</h3>
+            <p>Os valores sao aproximacoes para ensino. Para pesquisa, substitua este motor por RDKit + xTB/Psi4 e visualize arquivos .cube.</p>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>
